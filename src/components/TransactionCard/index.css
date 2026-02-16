@@ -1,0 +1,49 @@
+.transaction-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.transaction-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.transaction-category {
+  font-size: 12px;
+  background: #ffead5;
+  color: #f97316;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.transaction-date {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.transaction-amount {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}

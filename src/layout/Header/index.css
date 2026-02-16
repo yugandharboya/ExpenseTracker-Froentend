@@ -1,0 +1,42 @@
+.header {
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  flex-direction: column;
+}
+.header-right-text {
+  align-self: center;
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.logout-btn {
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+.header-spent-value {
+  font-size: 15px;
+  color: #f97316;
+  font-weight: 500;
+}

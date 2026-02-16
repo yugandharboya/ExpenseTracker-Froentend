@@ -1,0 +1,10 @@
+.dashboard-wrapper {
+  display: flex;
+}
+.dashboard-main {
+  flex-grow: 1;
+  padding: 20px;
+}
+.dashboard-main h2 {
+  margin-top: 10px;
+}

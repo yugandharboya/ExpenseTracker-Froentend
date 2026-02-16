@@ -1,0 +1,72 @@
+.add-transaction {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-height: 90vh;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  border-radius: 20px;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.add-transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-input,
+.dropdown {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.dropdown {
+  appearance: none;
+  color: gray;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.add-transaction-btn,
+.cancel-transaction-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.add-transaction-btn {
+  background-color: #2563eb;
+}
+
+.cancel-transaction-btn {
+  background-color: #6b7280;
+}
+
+.error-msg {
+  color: red;
+  font-size: 14px;
+}
