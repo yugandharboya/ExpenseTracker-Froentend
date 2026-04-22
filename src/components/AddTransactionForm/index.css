@@ -48,13 +48,19 @@
   margin-top: 10px;
 }
 
-.add-transaction-btn,
-.cancel-transaction-btn {
-  flex: 1;
-  height: 40px;
-  border-radius: 10px;
+.add-transaction-btn {
+  background-color: #4a90e2;
+  color: #fff;
   border: none;
-  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cancel-transaction-btn {
+  background-color: #ccc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
 }
 

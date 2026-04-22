@@ -3,10 +3,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
+  margin-top: 25px;
+  width: 100%;
 }
 
 .transactions-title {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   color: #1f2937;
   margin: 0;
@@ -22,15 +24,20 @@
   background: #14b8a6;
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 8px 5px;
+  border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
   transition: 0.2s;
-  width: 200px;
   border: 1px solid #e5e7eb;
 }
 
 .transaction-header-btn:hover {
   background: #0d9488;
+}
+@media (min-width: 400px) {
+  .transaction-header-btn {
+    width: auto;
+    padding: 8px 18px;
+  }
 }

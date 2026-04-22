@@ -17,7 +17,7 @@ const TransactionsHeader = () => {
         className="transaction-header-btn"
         onClick={() => setShowTransactionForm(true)}
       >
-        + Add Transaction
+        Add Transaction
       </button>
     </div>
   );

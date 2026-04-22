@@ -1,8 +1,10 @@
 import "./index.css";
 import { useState, useContext } from "react";
-
+import { DollarSign } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+
+const BASE_URL = "https://expensetracker-backend-lvzi.onrender.com";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Register = () => {
       password,
     };
     try {
-      const response = await fetch(`http://localhost:5000/auth/register`, {
+      const response = await fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +32,7 @@ const Register = () => {
         body: JSON.stringify(userData),
       });
       const data = await response.json();
+
       if (response.status === 400) {
         setRegError(data.message);
       }
@@ -50,11 +53,18 @@ const Register = () => {
 
   return (
     <div className="register-container">
+      <div className="login-page-header">
+        <div className="logo-box">
+          <DollarSign size={20} color="white" />
+        </div>
+        <h1>ExpenseFlow</h1>
+        <p>Track your finances with clarity</p>
+      </div>
       <div className="register-card">
         <h2 className="register-title">Register</h2>
 
         <form className="register-form" onSubmit={handleSubmit}>
-          <div>
+          <div className="register-form-group">
             <label>Name</label>
             <input
               type="text"
@@ -64,7 +74,7 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="register-form-group">
             <label>Email</label>
             <input
               type="email"
@@ -74,7 +84,7 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="register-form-group">
             <label>Password</label>
             <input
               type="password"
@@ -89,8 +99,8 @@ const Register = () => {
           </button>
           <p className="error-msg">{regError}</p>
         </form>
-        <div className="footer">
-          Do you have an account?{" "}
+        <div className="register-footer">
+          <p>Do you have an account?</p>{" "}
           <Link to="/login" className="navigator-link">
             Login
           </Link>

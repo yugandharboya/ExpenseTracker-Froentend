@@ -1,10 +1,28 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+}
 .dashboard-wrapper {
   display: flex;
+  flex-direction: column;
 }
 .dashboard-main {
-  flex-grow: 1;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
+
 .dashboard-main h2 {
   margin-top: 10px;
+}
+.summery-cards-heading {
+  margin-top: 30px;
+  font-size: 25px;
+}
+.hero-card {
+  margin-top: 30px;
+}
+.recent-transactions-heading {
+  margin-top: 25px;
 }

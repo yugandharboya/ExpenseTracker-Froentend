@@ -7,10 +7,10 @@ import { HrmsContextProvider } from "./context";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <HrmsContextProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <HrmsContextProvider>
         <App />
-      </BrowserRouter>
-    </HrmsContextProvider>
+      </HrmsContextProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

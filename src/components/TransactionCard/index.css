@@ -1,4 +1,5 @@
 .transaction-card {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,4 +47,22 @@
   font-size: 16px;
   font-weight: 600;
   color: #111827;
+  align-self: flex-start;
+}
+.transaction-card-btns {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hide-transaction-card-btns {
+  display: none;
+}
+.transaction-edit-btn,
+.transaction-delete-btn {
+  background-color: #cecfd3;
+  border: none;
+  padding: 3px 20px;
+  border-radius: 4px;
+  cursor: pointer;
 }

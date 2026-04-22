@@ -1,42 +1,62 @@
 import "./index.css";
 import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-import HrmsContext from "../../context";
-import { useContext, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { DollarSign } from "lucide-react";
+
 const Header = () => {
+  const location = useLocation();
+
   const navigate = useNavigate();
-  const { totalSpent, getTotalExpenses } = useContext(HrmsContext);
+
   const handleLogout = () => {
     navigate("/login");
     Cookies.remove("jwt_token");
   };
-  useEffect(() => {
-    getTotalExpenses();
-  }, []);
   return (
     <div className="header">
-      <div className="header-left">
-        <h3 className="header-title">Bellcorp Expense Tracker</h3>
-        <p className="header-left-text">Track your expenses wisely</p>
-      </div>
-      <div className="header-nav">
-        <div className="header-nav">
-          <Link to="/" className="nav-link">
+      <div className="header-desktop-wrapper">
+        <div className="header-left">
+          <div className="logo-box">
+            <DollarSign size={20} color="white" />
+          </div>
+          <h3 className="header-title">ExpenseFlow</h3>
+        </div>
+
+        <div className="header-nav-pages-desktop">
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+          >
             Dashboard
           </Link>
-          <Link to="/transactions" className="nav-link">
+          <Link
+            to="/transactions"
+            className={`nav-link ${location.pathname === "/transactions" ? "active" : ""}`}
+          >
             Transactions
           </Link>
         </div>
-      </div>
 
-      <div className="header-right">
-        <h3 className="header-right-title">Total Expenses</h3>
-        <p className="header-spent-value">-₹{totalSpent}</p>
+        <div className="header-right">
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
-      <button className="logout-btn" onClick={handleLogout}>
-        Logout
-      </button>
+      <div className="header-nav-pages-mobile">
+        <Link
+          to="/"
+          className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/transactions"
+          className={`nav-link ${location.pathname === "/transactions" ? "active" : ""}`}
+        >
+          Transactions
+        </Link>
+      </div>
     </div>
   );
 };

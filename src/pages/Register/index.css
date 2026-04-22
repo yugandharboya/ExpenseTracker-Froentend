@@ -1,26 +1,24 @@
 .register-container {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: #0f172a;
+  padding-top: 20px;
 }
-
 .register-card {
   width: 350px;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
-  background-color: #111d38;
+  background-color: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
 .register-title {
   text-align: center;
   margin-bottom: 20px;
   font-size: 22px;
   font-weight: 600;
-  color: white;
+  color: var(--header-primary);
 }
 
 .register-form {
@@ -31,7 +29,7 @@
 .register-form label {
   margin-bottom: 6px;
   font-size: 14px;
-  color: white;
+  color: var(--text-primary);
 }
 
 .register-form input {
@@ -50,11 +48,11 @@
 }
 
 .register-button {
-  padding: 10px;
+  padding: 15px;
   border: none;
   border-radius: 5px;
-  background-color: #4a90e2;
-  color: white;
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-text-primary);
   font-size: 15px;
   cursor: pointer;
   transition: 0.2s;
@@ -68,4 +66,22 @@
 }
 .error-msg {
   color: red;
+}
+.register-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 20px;
+}
+.register-footer p {
+  color: var(--text-secondary);
+}
+.register-form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.register-form-group label {
+  color: var(--text-primary);
 }

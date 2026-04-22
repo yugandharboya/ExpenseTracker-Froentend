@@ -9,10 +9,38 @@
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  background-color: #ffffff;
+  background: #068f9e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(240, 4, 4, 0.15);
 }
 .summery-card-value {
-  font-size: 15px;
-  color: #f97316;
+  font-size: 25px;
+  color: white;
   font-weight: 500;
+}
+.summery-card-title {
+  color: #c5eef3;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.month-selection {
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  color: rgb(201, 201, 20);
+  background: transparent;
+  border: 1px solid rgb(106, 143, 165);
+  margin-top: 5px;
+  padding: 10px;
+}
+@media (max-width: 400px) {
+  .summary-card {
+    padding: 10px;
+  }
 }

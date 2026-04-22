@@ -1,11 +1,19 @@
-.login-bg-container {
+.login-page {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  background-color: #0f172a;
+  gap: 20px;
+  padding-top: 20px;
 }
-
+.login-page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 .login-container {
   display: flex;
   flex-direction: column;
@@ -14,31 +22,35 @@
   height: 400px;
   padding: 30px;
   border-radius: 8px;
-  background-color: #111d38;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--card-bg);
+  border: var(--card-border);
 }
 
 .login-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-size: 22px;
   font-weight: 600;
-  color: white;
+  color: var(--header-primary);
 }
-
+.login-demo-credentials {
+  padding: 10px;
+  margin-bottom: 15px;
+}
 .login-form {
   display: flex;
   flex-direction: column;
 }
 .login-form-group {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 5px;
 }
 .login-form label {
   margin-bottom: 6px;
   font-size: 14px;
-  color: white;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .login-form input {
@@ -57,23 +69,30 @@
 }
 
 .login-button {
-  padding: 10px;
+  padding: 12px;
   border: none;
   border-radius: 5px;
-  background-color: #4a90e2;
-  color: white;
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-text-primary);
   font-size: 15px;
   cursor: pointer;
   transition: 0.2s;
+  margin-bottom: 10px;
 }
 
 .login-button:hover {
   background-color: #3b7bd6;
 }
-.footer {
-  color: white;
+.login-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-secondary);
 }
-.footer span {
+.login-footer p {
+  color: var(--color-secondary);
+}
+.login-footer span {
   color: green;
   cursor: pointer;
 }

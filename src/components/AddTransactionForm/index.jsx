@@ -1,10 +1,18 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./index.css";
 import Cookies from "js-cookie";
 import HrmsContext from "../../context";
 
+const BASE_URL = "https://expensetracker-backend-lvzi.onrender.com";
+
 const AddExpenseForm = () => {
-  const { setShowTransactionForm, categoryList } = useContext(HrmsContext);
+  const {
+    setShowTransactionForm,
+    categoryList,
+    getCategoryWiseExpense,
+    getTransactions,
+    getTotalExpenses,
+  } = useContext(HrmsContext);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -21,9 +29,10 @@ const AddExpenseForm = () => {
       date: date,
       type: "expense", // we are present building only expenses
     };
+
     const token = Cookies.get("jwt_token");
     try {
-      const response = await fetch("http://localhost:5000/transactions", {
+      const response = await fetch(`${BASE_URL}/transactions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +50,9 @@ const AddExpenseForm = () => {
         setDate("");
         setError("");
         setShowTransactionForm(false);
+        getTransactions();
+        getCategoryWiseExpense();
+        getTotalExpenses();
       }
       if (response.status === 400) {
         const data = await response.json();
@@ -51,6 +63,9 @@ const AddExpenseForm = () => {
       console.log("error", error);
     }
   };
+  useEffect(() => {
+    getCategoryWiseExpense();
+  }, []);
   return (
     <div className="add-transaction">
       <h3 className="add-transaction-title">Add Expense</h3>

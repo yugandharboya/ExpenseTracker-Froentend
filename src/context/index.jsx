@@ -1,12 +1,20 @@
+const BASE_URL = "https://expensetracker-backend-lvzi.onrender.com";
+
 import { createContext, useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { format, startOfMonth, endOfMonth } from "date-fns";
+import { useEffect } from "react";
 
-const BASE_URL = "http://localhost:5000";
-// const BASE_URL = "https://hrms-backend-0bid.onrender.com";
+const currentDate = new Date();
+const start = format(startOfMonth(currentDate), "yyyy-MM-dd");
+const end = format(endOfMonth(currentDate), "yyyy-MM-dd");
 
 const HrmsContext = createContext();
 
 export const HrmsContextProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [showTransactionForm, setShowTransactionForm] = useState(false);
   const [transactionsList, setTransactionsList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -15,9 +23,27 @@ export const HrmsContextProvider = ({ children }) => {
   const [totalSpent, setTotalSpent] = useState(0);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [editTransaction, setEditTransaction] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorView, setErrorView] = useState(false);
 
-  const getTransactions = async () => {
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [startDate, setStartDate] = useState(start);
+  const [endDate, setEndDate] = useState(end);
+
+  const handleAuthError = (response) => {
+    if (response.status === 401 || response.status === 403) {
+      Cookies.remove("jwt_token");
+      navigate("/login");
+      return true;
+    }
+    return false;
+  };
+
+  const getTransactions = async (page = 1, limit = 10) => {
     const token = Cookies.get("jwt_token");
+    setLoading(true);
+
     const options = {
       method: "GET",
       headers: {
@@ -25,26 +51,37 @@ export const HrmsContextProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
     try {
       const response = await fetch(
-        `http://localhost:5000/transactions?page=${page}&limit=10&search=${searchValue}&category=${categoryValue}`,
+        `${BASE_URL}/transactions?page=${page}&limit=${limit}&search=${searchValue}&category=${categoryValue}&startDate=${startDate}&endDate=${endDate}`,
         options,
       );
+
+      if (handleAuthError(response)) return;
+
       if (response.ok) {
+        setLoading(false);
+        setErrorView(false);
         const data = await response.json();
+
         if (page === 1) {
           setTransactionsList(data.transactions);
         } else {
           setTransactionsList((prev) => [...prev, ...data.transactions]);
         }
+
         setHasMore(data.hasMore);
       }
     } catch (error) {
+      setErrorView(true);
       console.log(error);
     }
   };
+
   const getCategoryWiseExpense = async () => {
     const token = Cookies.get("jwt_token");
+
     const options = {
       method: "GET",
       headers: {
@@ -52,11 +89,11 @@ export const HrmsContextProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
     try {
-      const response = await fetch(
-        "http://localhost:5000/dashboard/category",
-        options,
-      );
+      const response = await fetch(`${BASE_URL}/dashboard/category`, options);
+
+      if (handleAuthError(response)) return;
 
       if (response.ok) {
         const data = await response.json();
@@ -69,6 +106,7 @@ export const HrmsContextProvider = ({ children }) => {
 
   const getTotalExpenses = async () => {
     const token = Cookies.get("jwt_token");
+
     const options = {
       method: "GET",
       headers: {
@@ -76,11 +114,12 @@ export const HrmsContextProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
     try {
-      const response = await fetch(
-        "http://localhost:5000/dashboard/total",
-        options,
-      );
+      const response = await fetch(`${BASE_URL}/dashboard/total`, options);
+
+      if (handleAuthError(response)) return;
+
       if (response.ok) {
         const data = await response.json();
         setTotalSpent(data.total);
@@ -89,6 +128,25 @@ export const HrmsContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const handleMonth = (event) => {
+    const monthIndex = event.target.value;
+    const updatedMonth = new Date(selectedMonth.getFullYear(), monthIndex, 1);
+    setSelectedMonth(updatedMonth);
+  };
+  useEffect(() => {
+    const monthStart = format(startOfMonth(selectedMonth), "yyyy-MM-dd");
+    const monthEnd = format(endOfMonth(selectedMonth), "yyyy-MM-dd");
+    setStartDate(monthStart);
+    setEndDate(monthEnd);
+  }, [selectedMonth]);
+
+  useEffect(() => {
+    getTransactions();
+  }, [startDate, endDate, searchValue, categoryValue]);
+  useEffect(() => {
+    getTotalExpenses();
+  }, [startDate, endDate]);
   return (
     <HrmsContext.Provider
       value={{
@@ -111,8 +169,19 @@ export const HrmsContextProvider = ({ children }) => {
         setHasMore,
         page,
         setPage,
-        categoryList,
-        setCategoryList,
+        editTransaction,
+        setEditTransaction,
+        loading,
+        setLoading,
+        errorView,
+        setErrorView,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
+        selectedMonth,
+        setSelectedMonth,
+        handleMonth,
       }}
     >
       {children}

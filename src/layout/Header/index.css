@@ -1,42 +1,135 @@
 .header {
-  height: 80px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.header-desktop-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  margin: 0px;
 }
 
 .header-left,
 .header-right {
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
-.header-right-text {
+
+.header-left {
+  gap: 5px;
+}
+
+.header-right {
+  gap: 10px;
+}
+
+.expense-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-nav-pages-mobile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   align-self: center;
 }
-.header-nav {
-  display: flex;
+
+.header-nav-pages-desktop {
+  display: none;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 }
+
 .nav-link {
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  color: var(--text-primary);
 }
+
+.active {
+  background-color: rgb(220, 247, 247);
+  border-radius: 6px;
+  padding: 3px 5px;
+}
+
 .logout-btn {
   border-radius: 5px;
   border: none;
   padding: 10px;
   cursor: pointer;
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-text-primary);
+  font-weight: 600;
 }
-.header-spent-value {
-  font-size: 15px;
-  color: #f97316;
-  font-weight: 500;
+
+.logo-box {
+  width: 25px;
+  height: 25px;
+  background: #0ea5b7;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-right-title {
+  font-size: 14px;
+}
+
+@media (min-width: 500px) {
+  .header {
+    padding: 10px 20px;
+  }
+
+  .header-nav-pages-mobile {
+    display: none;
+  }
+
+  .header-nav-pages-desktop {
+    display: flex;
+  }
+
+  .nav-link {
+    width: auto;
+  }
+
+  .logout-btn {
+    padding: 10px 15px;
+  }
+
+  .logo-box {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header-right {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 10px 50px;
+  }
+
+  .logo-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-expense-value {
+    font-size: 15px;
+  }
 }
