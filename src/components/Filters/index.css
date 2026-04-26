@@ -18,7 +18,11 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-
+.filters-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .search-input-element {
   background-color: #f5f7fa;
   border-width: none;
@@ -42,4 +46,12 @@
 }
 .filter-title {
   font-size: 25px;
+}
+.refresh-search-result-btn {
+  padding: 5px 10px;
+  border: none;
+  background-color: rgb(221, 241, 235);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }

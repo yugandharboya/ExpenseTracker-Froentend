@@ -3,16 +3,16 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  gap: 10px;
 }
 .error-view-heading {
-  font-size: 14px;
+  font-size: 18px;
   color: #333333;
+  margin-top: 10px;
 }
-.error-text {
+.error-view-message {
   font-size: 14px;
   color: #ff0000;
-  margin-top: 20px;
+  font-weight: 400;
 }
 .error-view-image {
   width: 150px;
@@ -21,7 +21,7 @@
   .error-view-heading {
     font-size: 24px;
   }
-  .error-text {
+  .error-view-message {
     font-size: 20px;
   }
   .error-view-image {

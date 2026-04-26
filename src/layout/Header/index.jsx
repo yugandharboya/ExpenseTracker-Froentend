@@ -14,15 +14,15 @@ const Header = () => {
   };
   return (
     <div className="header">
-      <div className="header-desktop-wrapper">
+      <div className="desktop-view">
         <div className="header-left">
           <div className="logo-box">
-            <DollarSign size={20} color="white" />
+            <DollarSign size={25} color="white" />
           </div>
           <h3 className="header-title">ExpenseFlow</h3>
         </div>
 
-        <div className="header-nav-pages-desktop">
+        <div className="desktop-nav">
           <Link
             to="/"
             className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
@@ -37,13 +37,11 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="header-right">
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
-      <div className="header-nav-pages-mobile">
+      <div className="mobile-nav">
         <Link
           to="/"
           className={`nav-link ${location.pathname === "/" ? "active" : ""}`}

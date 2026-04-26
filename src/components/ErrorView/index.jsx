@@ -1,11 +1,12 @@
 import "./index.css";
+import failureView from "../../assets/failure-view.png";
 
 const ErrorView = () => {
   return (
     <div className="error-view-container">
       <img
-        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="Error"
+        src={failureView}
+        alt="failure view image"
         className="error-view-image"
       />
       <h1 className="error-view-heading">❌ Oops! Something went wrong.</h1>

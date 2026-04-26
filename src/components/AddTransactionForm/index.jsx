@@ -1,18 +1,19 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Cookies from "js-cookie";
-import HrmsContext from "../../context";
-
-const BASE_URL = "https://expensetracker-backend-lvzi.onrender.com";
+import { UIContext } from "../../context/UIContext";
+import { TransactionContext } from "../../context/TransactionContext";
+import { DashboardContext } from "../../context/DashboardContext";
+import { BASE_URL } from "../../constants/constants";
 
 const AddExpenseForm = () => {
-  const {
-    setShowTransactionForm,
-    categoryList,
-    getCategoryWiseExpense,
-    getTransactions,
-    getTotalExpenses,
-  } = useContext(HrmsContext);
+  const navigate = useNavigate();
+  const { setShowTransactionForm } = useContext(UIContext);
+  const { categoryList, getCategories, getTotalExpenses } =
+    useContext(DashboardContext);
+  const { getTransactions } = useContext(TransactionContext);
+
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -21,16 +22,31 @@ const AddExpenseForm = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    // title, amount, category, type, date
-    const transactionData = {
-      title: title,
-      amount: amount,
-      category: category,
-      date: date,
-      type: "expense", // we are present building only expenses
-    };
 
     const token = Cookies.get("jwt_token");
+    if (!token) {
+      navigate("/");
+      return;
+    }
+    const amountNumber = Number(amount);
+    if (
+      !title.trim() ||
+      isNaN(amountNumber) ||
+      amountNumber <= 0 ||
+      !category.trim() ||
+      !date
+    ) {
+      setError("Fill All Fields with valid values");
+      return;
+    }
+    const transactionData = {
+      title: title.trim(),
+      amount: amountNumber,
+      category: category.trim(),
+      date: date,
+      type: "expense", // present buiding only expense tracker so we wrote type default is expense
+    };
+
     try {
       const response = await fetch(`${BASE_URL}/transactions`, {
         method: "POST",
@@ -41,31 +57,35 @@ const AddExpenseForm = () => {
         body: JSON.stringify(transactionData),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        alert(data.message || "transaction Created !");
-        setTitle("");
-        setAmount("");
-        setCategory("");
-        setDate("");
-        setError("");
-        setShowTransactionForm(false);
-        getTransactions();
-        getCategoryWiseExpense();
-        getTotalExpenses();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
       }
-      if (response.status === 400) {
-        const data = await response.json();
-        setError(data.message || "Bad  Input Values");
+
+      if (!response.ok) {
+        setError(data.message || "something went wrong");
+        return;
       }
+
+      setTitle("");
+      setAmount("");
+      setCategory("");
+      setDate("");
+      setError("");
+      setShowTransactionForm(false);
+
+      await Promise.all([
+        getTransactions(),
+        getCategories(),
+        getTotalExpenses(),
+      ]);
     } catch (error) {
-      alert("Server Error");
-      console.log("error", error);
+      setError("network error. Please Try again");
+      console.log(error);
     }
   };
-  useEffect(() => {
-    getCategoryWiseExpense();
-  }, []);
   return (
     <div className="add-transaction">
       <h3 className="add-transaction-title">Add Expense</h3>
@@ -75,7 +95,6 @@ const AddExpenseForm = () => {
           <label>Title</label>
           <input
             type="text"
-            name="title"
             className="form-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -86,7 +105,6 @@ const AddExpenseForm = () => {
           <label>Amount</label>
           <input
             type="number"
-            name="amount"
             className="form-input"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -94,26 +112,25 @@ const AddExpenseForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Category</label>
+          <label>Previous Category</label>
           <select
-            name="category"
             className="dropdown"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Previous</option>
-            {categoryList.map((each, index) => (
+            {(categoryList || []).map((each, index) => (
               <option value={each.category} key={index}>
                 {each.category}
               </option>
             ))}
           </select>
         </div>
+
         <div className="form-group">
           <label>Add New Category</label>
           <input
             type="text"
-            name="Category"
             placeholder="Enter category name"
             className="form-input"
             value={category}
@@ -125,14 +142,13 @@ const AddExpenseForm = () => {
           <label>Date</label>
           <input
             type="date"
-            name="date"
             className="form-input"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
 
-        <div className="buttons-wrapper">
+        <div className="add-form-buttons">
           <button type="submit" className="add-transaction-btn">
             Add
           </button>
@@ -146,7 +162,7 @@ const AddExpenseForm = () => {
           </button>
         </div>
 
-        <p className="error-msg">{error}</p>
+        {error && <p className="error-msg">{error}</p>}
       </form>
     </div>
   );

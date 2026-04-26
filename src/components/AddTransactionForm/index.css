@@ -12,7 +12,7 @@
   background-color: #ffffff;
   border-radius: 20px;
   gap: 12px;
-  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .add-transaction-form {
@@ -35,41 +35,33 @@
   border-radius: 6px;
   font-size: 14px;
   box-sizing: border-box;
+  outline: none;
 }
 
 .dropdown {
-  appearance: none;
-  color: gray;
+  color: var(--text-secondary);
 }
 
-.buttons-wrapper {
+.add-form-buttons {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
 
-.add-transaction-btn {
-  background-color: #4a90e2;
-  color: #fff;
+.add-transaction-btn,
+.cancel-transaction-btn {
+  color: var(--btn-text-primary);
   border: none;
-  padding: 6px 12px;
+  padding: 12px 34px;
   border-radius: 4px;
   cursor: pointer;
 }
 .cancel-transaction-btn {
   background-color: #ccc;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .add-transaction-btn {
   background-color: #2563eb;
-}
-
-.cancel-transaction-btn {
-  background-color: #6b7280;
 }
 
 .error-msg {

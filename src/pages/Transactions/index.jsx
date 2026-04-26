@@ -1,6 +1,5 @@
 import "./index.css";
 import { useContext, useEffect } from "react";
-
 import Filters from "../../components/Filters";
 import TransactionsHeader from "../../components/TransactionsHeader";
 import TransactionCard from "../../components/TransactionCard";
@@ -9,31 +8,31 @@ import EditTransactionForm from "../../components/EditTransactionForm";
 import LoadingView from "../../components/LoadingView";
 import ErrorView from "../../components/ErrorView";
 
-import HrmsContext from "../../context";
+import { TransactionContext } from "../../context/TransactionContext";
+import { DashboardContext } from "../../context/DashboardContext";
+import { UIContext } from "../../context/UIContext";
+import { FilterContext } from "../../context/FilterContext";
 
 const Transactions = () => {
+  const { showTransactionForm, editTransaction } = useContext(UIContext);
+  const { searchValue, categoryValue, startDate, endDate } =
+    useContext(FilterContext);
   const {
-    showTransactionForm,
     transactionsList,
     getTransactions,
-    searchValue,
-    categoryValue,
     hasMore,
     page,
     setPage,
-    editTransaction,
-    loading,
-    errorView,
-    getCategoryWiseExpense,
-    categoryList,
-  } = useContext(HrmsContext);
+    transactionState,
+  } = useContext(TransactionContext);
+  const { categoryList, getCategories } = useContext(DashboardContext);
 
   useEffect(() => {
-    getCategoryWiseExpense();
+    getCategories();
   }, [categoryList.length]);
   useEffect(() => {
     getTransactions(page, 10);
-  }, [page, searchValue, categoryValue]);
+  }, [page, startDate, endDate, searchValue, categoryValue]);
 
   return (
     <div className="transactions-page">
@@ -43,10 +42,10 @@ const Transactions = () => {
       <TransactionsHeader />
       <Filters />
 
-      {errorView ? (
-        <ErrorView />
-      ) : loading ? (
+      {transactionState.loading ? (
         <LoadingView />
+      ) : transactionState.error ? (
+        <ErrorView />
       ) : transactionsList.length === 0 ? (
         <h1 className="empty-text">No Transactions Added yet</h1>
       ) : (

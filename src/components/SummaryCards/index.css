@@ -6,29 +6,29 @@
   gap: 5px;
 }
 .summary-card {
-  padding: 20px;
+  padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   background: #068f9e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 .summary-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(240, 4, 4, 0.15);
-}
-.summery-card-value {
-  font-size: 25px;
-  color: white;
-  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(4, 39, 240, 0.15);
 }
 .summery-card-title {
   color: #c5eef3;
   font-weight: 700;
   margin-bottom: 5px;
 }
+.summery-card-value {
+  font-size: 25px;
+  color: white;
+  font-weight: 500;
+}
+
 .month-selection {
   width: 100%;
   outline: none;
@@ -39,8 +39,8 @@
   margin-top: 5px;
   padding: 10px;
 }
-@media (max-width: 400px) {
+@media (min-width: 400px) {
   .summary-card {
-    padding: 10px;
+    padding: 20px;
   }
 }

@@ -1,20 +1,20 @@
-const BASE_URL = "https://expensetracker-backend-lvzi.onrender.com";
 import "./index.css";
-import HrmsContext from "../../context";
+import { BASE_URL } from "../../constants/constants";
+import { UIContext } from "../../context/UIContext";
+import { TransactionContext } from "../../context/TransactionContext";
+import { DashboardContext } from "../../context/DashboardContext";
 import { useContext } from "react";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
 const TransactionCard = ({ item }) => {
   const location = useLocation();
-
   const { title, amount, category, date } = item;
-  const {
-    setEditTransaction,
-    getTransactions,
-    getCategoryWiseExpense,
-    getTotalExpenses,
-  } = useContext(HrmsContext);
+  const { setEditTransaction } = useContext(UIContext);
+  const { getTotalExpenses, getCategories } = useContext(DashboardContext);
+  const { transactionsList, getTransactions, hasMore } =
+    useContext(TransactionContext);
+
   const token = Cookies.get("jwt_token");
 
   const handleDelete = async () => {
@@ -32,7 +32,7 @@ const TransactionCard = ({ item }) => {
       if (response.status === 200) {
         const data = await response.json();
         getTransactions();
-        getCategoryWiseExpense();
+        getCategories();
         getTotalExpenses();
         alert(data.message || "Transaction deleted successfully");
       }

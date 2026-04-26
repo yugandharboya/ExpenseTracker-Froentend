@@ -8,10 +8,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99999;
 }
 
 .edit-transaction-card {
-  width: 370px;
+  width: 90%;
+  height: 90%;
+  max-width: 400px;
+  max-height: 500px;
+
   background-color: #f5f7fa;
   padding: 20px;
   border-radius: 5px;
@@ -25,9 +30,16 @@
 .edit-transaction-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
-
+.edit-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.edit-form-group label {
+  font-weight: bold;
+}
 .edit-transaction-form input,
 .edit-transaction-form select {
   padding: 6px;
@@ -37,12 +49,16 @@
 
 .edit-actions {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-self: center;
+  width: 80%;
+  gap: 10px;
   margin-top: 10px;
 }
 
-.update-btn {
-  background-color: #4a90e2;
+.update-btn,
+.cancel-btn {
   color: #fff;
   border: none;
   padding: 6px 12px;
@@ -50,10 +66,9 @@
   cursor: pointer;
 }
 
+.update-btn {
+  background-color: #4a90e2;
+}
 .cancel-btn {
   background-color: #ccc;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
 }

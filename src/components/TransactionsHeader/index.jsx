@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import "./index.css";
-import HrmsContext from "../../context";
+import { UIContext } from "../../context/UIContext";
 
 const TransactionsHeader = () => {
-  const { setShowTransactionForm } = useContext(HrmsContext);
+  const { setShowTransactionForm } = useContext(UIContext);
   return (
     <div className="transactions-header">
       <div className="transactions-header-left">

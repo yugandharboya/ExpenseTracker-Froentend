@@ -2,32 +2,21 @@ import "./index.css";
 import { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
-
-import HrmsContext from "../../context";
+import { DashboardContext } from "../../context/DashboardContext";
+import { TransactionContext } from "../../context/TransactionContext";
+import { FilterContext } from "../../context/FilterContext";
 
 const SummeryCards = () => {
-  const {
-    getTotalExpenses,
-    totalSpent,
-    selectedMonth,
-    setSelectedMonth,
-    getTransactions,
-    handleMonth,
-  } = useContext(HrmsContext);
+  const { startDate, endDate } = useContext(FilterContext);
+  const { getTransactions, transactionsList } = useContext(TransactionContext);
+  const { getTotalExpenses, totalSpent } = useContext(DashboardContext);
 
-  const monthIndex = selectedMonth.getMonth();
-  const currentYear = selectedMonth.getFullYear();
-
-  useEffect(() => {
-    getTransactions();
-    // getTotalExpenses();
-  }, []);
   return (
     <div className="summary-cards-container">
       <div className="summary-card">
         <h3 className="summery-card-title">Total Expenses</h3>
         <p className="summery-card-value">-₹ {totalSpent}</p>
-        <select
+        {/* <select
           className="month-selection"
           onChange={handleMonth}
           value={monthIndex}
@@ -44,7 +33,7 @@ const SummeryCards = () => {
           <option value={9}>October {currentYear}</option>
           <option value={10}>November {currentYear}</option>
           <option value={11}>December {currentYear}</option>
-        </select>
+        </select> */}
       </div>
     </div>
   );
