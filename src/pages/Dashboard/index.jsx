@@ -17,20 +17,26 @@ const Dashboard = () => {
   const { getCategories, getTotalExpenses } = useContext(DashboardContext);
   const { transactionsList, getTransactions, transactionState } =
     useContext(TransactionContext);
-  const { startDate, endDate, searchValue, categoryValue, selectedMonth } =
-    useContext(FilterContext);
+  const {
+    MonthStartDate,
+    MonthEndDate,
+    selectedYear,
+    searchValue,
+    categoryValue,
+    selectedMonth,
+  } = useContext(FilterContext);
 
   useEffect(() => {
     getTransactions(1, 10);
     getCategories();
     getTotalExpenses();
-  }, [startDate, endDate, searchValue, categoryValue]);
+  }, [MonthStartDate, MonthEndDate]);
 
   return (
     <div className="dashboard-page">
       <div className="hero-card">
-        <h2>Good morning, Yuga! 👋</h2>
-        <p>Here's your financial overview</p>
+        <h2>Good morning, Yugandhar! 👋</h2>
+        <p>Here’s your {selectedYear} financial summary</p>
       </div>
 
       <SummeryCards />

@@ -1,18 +1,19 @@
 .login-page {
-  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .login-main {
   width: 350px;
   height: auto;
-  padding: 20px 30px;
+  padding: 10px 30px;
   border-radius: 8px;
-  box-shadow: 0px 0px 4px var(--text-secondary);
+  /* box-shadow: 0px 0px 4px var(--text-secondary); */
   background-color: var(--card-bg);
+  border: 1px solid darkgray;
 }
 .login-form-container {
   display: flex;
@@ -22,12 +23,12 @@
 
 .login-title {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   font-size: 36px;
 }
 .login-demo-credentials {
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .login-form {
   display: flex;
@@ -39,7 +40,7 @@
   gap: 5px;
 }
 .login-form label {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   font-size: 14px;
   color: var(--text-primary);
   font-weight: 600;

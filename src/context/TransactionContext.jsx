@@ -3,12 +3,13 @@ import Cookies from "js-cookie";
 import { BASE_URL } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 import { FilterContext } from "../context/FilterContext";
+import { format } from "date-fns";
 
 export const TransactionContext = createContext();
 export const TransactionContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
-  const { searchValue, categoryValue, startDate, endDate } =
+  const { searchValue, categoryValue, MonthStartDate, MonthEndDate } =
     useContext(FilterContext);
   const [transactionsList, setTransactionsList] = useState([]);
 
@@ -33,7 +34,7 @@ export const TransactionContextProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `${BASE_URL}/transactions?page=${page}&limit=${limit}&search=${searchValue}&category=${categoryValue}&startDate=${startDate}&endDate=${endDate}`,
+        `${BASE_URL}/transactions?page=${page}&limit=${limit}&search=${searchValue}&category=${categoryValue}&startDate=${MonthStartDate}&endDate=${MonthEndDate}`,
         options,
       );
 
@@ -68,9 +69,18 @@ export const TransactionContextProvider = ({ children }) => {
       });
 
       if (page === 1) {
-        setTransactionsList(data.transactions);
+        const formattedTransactions = data.transactions.map((transaction) => ({
+          ...transaction,
+          date: format(new Date(transaction.date), "yyyy-MM-dd"),
+        }));
+
+        setTransactionsList(formattedTransactions);
       } else {
-        setTransactionsList((prev) => [...prev, ...data.transactions]);
+        const formattedTransactions = data.transactions.map((transaction) => ({
+          ...transaction,
+          date: format(new Date(transaction.date), "yyyy-MM-dd"),
+        }));
+        setTransactionsList((prev) => [...prev, ...formattedTransactions]);
       }
       setHasMore(data.hasMore);
     } catch (error) {

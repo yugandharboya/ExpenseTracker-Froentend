@@ -4,14 +4,15 @@ import { format, startOfMonth, endOfMonth } from "date-fns";
 export const FilterContext = createContext();
 
 export const FilterContextProvider = ({ children }) => {
-  const currentDate = format(new Date(), "yyyy-MM-dd");
-  const start = format(startOfMonth(currentDate), "yyyy-MM-dd");
-  const end = format(endOfMonth(currentDate), "yyyy-MM-dd");
+  const currentYear = new Date().getFullYear();
+
   const [searchValue, setSearchValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
-  const [selectedMonthDate, setSelectedtMonthDate] = useState(currentDate);
-  const [startDate, setStartDate] = useState(start);
-  const [endDate, setEndDate] = useState(end);
+
+  const [MonthStartDate, setMonthStartDate] = useState("");
+  const [MonthEndDate, setMonthEndDate] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState(currentYear);
 
   return (
     <FilterContext.Provider
@@ -22,14 +23,17 @@ export const FilterContextProvider = ({ children }) => {
         categoryValue,
         setCategoryValue,
 
-        startDate,
-        setStartDate,
+        MonthStartDate,
+        setMonthStartDate,
 
-        endDate,
-        setEndDate,
+        MonthEndDate,
+        setMonthEndDate,
 
-        selectedMonthDate,
-        setSelectedtMonthDate,
+        selectedMonth,
+        setSelectedMonth,
+
+        selectedYear,
+        setSelectedYear,
       }}
     >
       {children}

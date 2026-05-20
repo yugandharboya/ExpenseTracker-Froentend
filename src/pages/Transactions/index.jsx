@@ -15,7 +15,7 @@ import { FilterContext } from "../../context/FilterContext";
 
 const Transactions = () => {
   const { showTransactionForm, editTransaction } = useContext(UIContext);
-  const { searchValue, categoryValue, startDate, endDate } =
+  const { searchValue, categoryValue, MonthStartDate, MonthEndDate } =
     useContext(FilterContext);
   const {
     transactionsList,
@@ -32,7 +32,7 @@ const Transactions = () => {
   }, [categoryList.length]);
   useEffect(() => {
     getTransactions(page, 10);
-  }, [page, startDate, endDate, searchValue, categoryValue]);
+  }, [page, MonthStartDate, MonthEndDate, searchValue, categoryValue]);
 
   return (
     <div className="transactions-page">

@@ -10,8 +10,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [wakeupMessage, setWakeupMessage] = useState(false);
 
   const loginUser = async (userData) => {
+    setWakeupMessage(true);
     try {
       const response = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
@@ -40,6 +42,7 @@ const Login = () => {
       navigate("/");
       setEmail("");
       setPassword("");
+      setwakeupMessage(false);
     } catch (error) {
       setError("network error. Try again");
       console.log(error);
@@ -115,6 +118,12 @@ const Login = () => {
                 }}
               />
             </div>
+            {wakeupMessage && (
+              <p>
+                Server is waking up (free hosting plan). Please wait up to 30
+                seconds.
+              </p>
+            )}
             <button
               className="login-button"
               type="button"

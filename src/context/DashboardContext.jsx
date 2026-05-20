@@ -1,10 +1,14 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext, useContext } from "react";
 import Cookies from "js-cookie";
 import { BASE_URL } from "../constants/constants";
-
+import { FilterContext } from "./FilterContext";
+import { useNavigate } from "react-router-dom";
 export const DashboardContext = createContext();
 
 export const DashboardContextProvider = ({ children }) => {
+  const navigate = useNavigate();
+
+  const { MonthStartDate, MonthEndDate } = useContext(FilterContext);
   const [categoryList, setCategoryList] = useState([]);
   const [totalSpent, setTotalSpent] = useState(0);
 
@@ -19,8 +23,9 @@ export const DashboardContextProvider = ({ children }) => {
       },
     };
 
+    let url = `${BASE_URL}/dashboard/category?startDate=${MonthStartDate}&endDate=${MonthEndDate}`;
     try {
-      const response = await fetch(`${BASE_URL}/dashboard/category`, options);
+      const response = await fetch(url, options);
 
       if (response.status === 401 || response.status === 403) {
         Cookies.remove("jwt_token");
@@ -36,6 +41,7 @@ export const DashboardContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
   const getTotalExpenses = async () => {
     const token = Cookies.get("jwt_token");
 
@@ -46,9 +52,9 @@ export const DashboardContextProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
-
+    let url = `${BASE_URL}/dashboard/total?startDate=${MonthStartDate}&endDate=${MonthEndDate}`;
     try {
-      const response = await fetch(`${BASE_URL}/dashboard/total`, options);
+      const response = await fetch(url, options);
 
       if (response.status === 401 || response.status === 403) {
         Cookies.remove("jwt_token");

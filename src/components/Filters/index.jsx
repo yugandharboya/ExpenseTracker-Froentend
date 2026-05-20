@@ -5,23 +5,24 @@ import { DashboardContext } from "../../context/DashboardContext";
 import { FilterContext } from "../../context/FilterContext";
 
 const Filters = () => {
+  const currentYear = new Date().getFullYear();
   const { categoryList } = useContext(DashboardContext);
+
   const {
     searchValue,
     setSearchValue,
     categoryValue,
     setCategoryValue,
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    selectedMonthDate,
-    setSelectedtMonthDate,
+    MonthStartDate,
+    setMonthStartDate,
+    MonthEndDate,
+    setMonthEndDate,
+    selectedYear,
+    setSelectedYear,
+    selectedMonth,
+    setSelectedMonth,
   } = useContext(FilterContext);
 
-  const selectedMonthIndex = new Date(selectedMonthDate).getMonth();
-  const selectedDateYear = new Date(selectedMonthDate).getFullYear();
-  const currentYear = new Date().getFullYear();
   const startYear = 2025;
   const years = [];
   for (let x = startYear; x <= currentYear; x++) {
@@ -30,37 +31,33 @@ const Filters = () => {
 
   const handleMonthChange = (e) => {
     const monthIndex = e.target.value;
-    const dateObjet = new Date(selectedMonthDate);
-    const year = dateObjet.getFullYear();
-    const newDate = new Date(year, monthIndex);
+    const newDate = new Date(selectedYear, monthIndex);
     const newStartDate = format(startOfMonth(newDate), "yyyy-MM-dd");
     const newEndDate = format(endOfMonth(newDate), "yyyy-MM-dd");
-    setSelectedtMonthDate(newStartDate);
-    setStartDate(newStartDate);
-    setEndDate(newEndDate);
+
+    setSelectedMonth(monthIndex);
+    setMonthStartDate(newStartDate);
+    setMonthEndDate(newEndDate);
   };
+
   const handleChangeYear = (e) => {
     const year = e.target.value;
-    const currentDate = new Date(selectedMonthDate);
-    const updatedDate = setYear(currentDate, year);
+    const updatedDate = setYear(MonthStartDate, year);
     const newStartDate = format(startOfMonth(updatedDate), "yyyy-MM-dd");
     const newEndDate = format(endOfMonth(updatedDate), "yyyy-MM-dd");
 
-    setSelectedtMonthDate(format(updatedDate, "yyyy-MM-dd"));
-    setStartDate(newStartDate);
-    setEndDate(newEndDate);
+    setSelectedYear(year);
+    setMonthStartDate(newStartDate);
+    setMonthEndDate(newEndDate);
   };
 
   const handleRfreshFilters = () => {
     setSearchValue("");
     setCategoryValue("");
-    const currentDate = new Date();
-    const start = format(startOfMonth(currentDate), "yyyy-MM-dd");
-    const end = format(endOfMonth(currentDate), "yyyy-MM-dd");
-    const currentMonthDate = format(currentDate, "yyyy-MM-dd");
-    setStartDate(start);
-    setEndDate(end);
-    setSelectedtMonthDate(currentMonthDate);
+    setSelectedMonth("");
+    setSelectedYear(currentYear);
+    setMonthStartDate("");
+    setMonthEndDate("");
   };
 
   return (
@@ -97,26 +94,27 @@ const Filters = () => {
         </select>
         <select
           className="month-selection"
-          value={selectedMonthIndex}
+          value={selectedMonth}
           onChange={handleMonthChange}
         >
-          <option value={0}>January {selectedDateYear}</option>
-          <option value={1}>February {selectedDateYear}</option>
-          <option value={2}>March {selectedDateYear}</option>
-          <option value={3}>April {selectedDateYear}</option>
-          <option value={4}>May {selectedDateYear}</option>
-          <option value={5}>June {selectedDateYear}</option>
-          <option value={6}>July {selectedDateYear}</option>
-          <option value={7}>August {selectedDateYear}</option>
-          <option value={8}>September {selectedDateYear}</option>
-          <option value={9}>October {selectedDateYear}</option>
-          <option value={10}>November {selectedDateYear}</option>
-          <option value={11}>December {selectedDateYear}</option>
+          <option value="">SELECT MONTH</option>
+          <option value={0}>January {selectedYear}</option>
+          <option value={1}>February {selectedYear}</option>
+          <option value={2}>March {selectedYear}</option>
+          <option value={3}>April {selectedYear}</option>
+          <option value={4}>May {selectedYear}</option>
+          <option value={5}>June {selectedYear}</option>
+          <option value={6}>July {selectedYear}</option>
+          <option value={7}>August {selectedYear}</option>
+          <option value={8}>September {selectedYear}</option>
+          <option value={9}>October {selectedYear}</option>
+          <option value={10}>November {selectedYear}</option>
+          <option value={11}>December {selectedYear}</option>
         </select>
         <select
           className="dropdown-category"
           onChange={handleChangeYear}
-          value={selectedDateYear}
+          value={selectedYear}
         >
           <option value="">SELECT YEAR</option>
           {(years || []).map((e) => (
