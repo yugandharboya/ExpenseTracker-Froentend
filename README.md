@@ -1,16 +1,12 @@
-improved dashboard filtering and integrated recent transactions and username displa
-
 # 💰 Expense Tracker (Full Stack)
 
 A production-focused full-stack Expense Tracker application built to manage personal finances efficiently. This project demonstrates real-world full-stack development skills such as authentication, REST API integration, scalable state management, filtering, dashboard analytics, loading/error handling, and responsive UI design.
 
 ## 🌐 Live Demo
 
-Frontend:  
-https://expense-tracker-froentend.vercel.app/login
+Frontend: https://expense-tracker-froentend.vercel.app/login
 
-Backend API:  
-https://expensetracker-backend-lvzi.onrender.com
+Backend API: https://expensetracker-backend-lvzi.onrender.com
 
 ---
 
