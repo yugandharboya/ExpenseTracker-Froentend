@@ -1,40 +1,100 @@
+improved dashboard filtering and integrated recent transactions and username displa
+
 # 💰 Expense Tracker (Full Stack)
 
-A production-focused full-stack Expense Tracker application built to manage personal finances efficiently. This project demonstrates real-world skills like authentication, scalable backend design, filtering, and clean UI/UX.
+A production-focused full-stack Expense Tracker application built to manage personal finances efficiently. This project demonstrates real-world full-stack development skills such as authentication, REST API integration, scalable state management, filtering, dashboard analytics, loading/error handling, and responsive UI design.
+
+## 🌐 Live Demo
+
+Frontend:  
+https://expense-tracker-froentend.vercel.app/login
+
+Backend API:  
+https://expensetracker-backend-lvzi.onrender.com
 
 ---
 
-## Live Demo
+## ✨ Core Features
 
-- Frontend: https://expense-tracker-froentend.vercel.app/login
-- Backend API: https://expensetracker-backend-lvzi.onrender.com
+### Authentication
 
----
+- JWT-based authentication
+- Protected routes
+- Auto logout handling on `401` / `403`
+- Logged-in user API integration to display username dynamically in dashboard
 
-## Core Features
+### Dashboard
 
-- JWT-based authentication (cookie-based) with protected APIs
-- Dashboard with total and category-wise expense insights
-- Add, Update, and Delete transactions
-- Backend-driven filtering (search, category, month/year → startDate & endDate)
-- Pagination with "Load More" using `hasMore` for efficient data handling
-- Dynamic month & year filtering system (no frontend filtering)
-- Domain-based loading & error handling for better UX
-- Auth failure handling (auto logout on 401/403)
+- Total expense summary
+- Category-wise expense insights
+- Recent transactions section
+- Personalized dashboard greeting using logged-in user data
+- Separate dashboard APIs for optimized performance
+  - Summary API
+  - Category summary API
+  - Recent transactions API
+- Month-wise filtering using backend APIs
+
+### Transactions
+
+- Add transaction
+- Update transaction
+- Delete transaction
+- Get transactions with backend filtering
+- Search transactions
+- Category filtering
+- Month/year filtering
+
+### Filtering & Data Handling
+
+- Backend-driven filtering (no frontend filtering)
+- Dynamic month & year filtering using `startDate` and `endDate`
+- Pagination with `Load More`
+- Efficient `hasMore` handling
+- Domain-based loading and error states
+
+### State Management
+
+Scalable Context API architecture:
+
+1. DashboardContext
+   - Handles dashboard summary
+   - Category insights
+   - Recent transactions
+   - Logged-in user details
+
+2. TransactionContext
+   - Handles transaction CRUD operations
+   - Pagination
+   - Transactions fetching
+
+3. FilterContext
+   - Controls search
+   - Category filtering
+   - Date filters
+
+4. UIContext
+   - Handles UI state
+   - Form visibility
+   - Modals and UX states
+
+### UI/UX Improvements
+
 - Responsive UI
-- Scalable state management using Context API
-  1. DashboardContext → handles dashboard data
-  2. TransactionsContext → manages transactions CRUD operations
-  3. FilterContext → controls date, category, and search filters
-  4. UIContext → manages UI states (loading, modals, etc.)
+- Domain-based loading views
+- Domain-based error handling
+- Personalized dashboard greeting
+- Better dashboard performance using separate APIs
 
 ---
 
 ## 🚀 Deployment
 
-- Frontend deployed on Vercel
-- Backend deployed on Render
-- Database hosted on Railway (MySQL)
+Frontend Hosting : Vercel  
+Backend Hosting : Render  
+Database : Railway (MySQL)
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -46,13 +106,15 @@ A production-focused full-stack Expense Tracker application built to manage pers
 - Fetch API
 - CSS
 - js-cookie
+- date-fns
 
 ### Backend
 
 - Node.js
 - Express.js
-- MySQL (mysql2 with connection pooling)
+- MySQL
 - JWT Authentication
+- bcrypt
 
 ---
 
@@ -62,53 +124,85 @@ A production-focused full-stack Expense Tracker application built to manage pers
 2. Server generates JWT token
 3. Token stored in cookies
 4. Token sent in headers for protected APIs
-5. Backend verifies token for secure data access
+5. Backend verifies token for secure access
+6. Logged-in user details fetched using `/users/me`
 
 ---
 
-## 🌐 API Design
+## 🌐 API Integration
 
-- RESTful APIs built with Express.js
-- User-based data isolation
-- Pagination, filtering, and search implemented
-- Structured error handling
+Frontend integrates with backend REST APIs for:
+
+```txt
+/auth/login
+/auth/register
+/users/me
+/transactions
+/dashboard/summary
+/dashboard/category-summary
+/dashboard/recent-transactions
+```
 
 ---
 
-## Project Improvements (Ongoing Work)
+## 🛠️ Setup
 
-1. Pagination
-   - Fix incorrect `hasMore` logic (`rows.length === limit` issue)
-   - Handle cases where total records are multiples of limit
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## 📂 Project Structure
+
+```txt
+src/
+│
+├── components/
+├── context/
+│   ├── DashboardContext
+│   ├── TransactionContext
+│   ├── FilterContext
+│   └── UIContext
+│
+├── pages/
+├── constants/
+├── App.js
+└── main.jsx
+```
+
+---
+
+## 🚧 Future Improvements
+
+1. Pagination Improvements
+   - Improve `hasMore` logic for edge cases
 
 2. Validation
-   - Validate each field in the expense object individually
+   - Field-level validation
 
-3. Date Filter
-   - Use a single function for both month & year changes
-   - Store dates as `Date` objects
-   - Convert to string only when sending to backend
+3. Loading Improvements
+   - Add loading states for create/update/delete APIs
 
-4. Loading State
-   - Add loading indicators for add, edit, and update actions
-   - Apply loading state for each API call
+4. User Notifications
+   - Toast messages after CRUD operations
 
-5. User Notifications
-   - Show toast messages after add, update, or delete transactions
+5. Expense Insights
+   - Monthly and yearly analytics
 
-6. Expense Insights
-   - Display current month and yearly total expenses in the dashboard
+6. Form UX Improvements
+   - Close modal on outside click
 
-7. Form UX Improvements
-   - Close form when clicking outside
+7. Edit Form Improvements
+   - Show recent categories for quick selection
 
-8. Edit Form UX
-   - Display previously used categories for quick selection
+---
 
 ## 👨‍💻 Author
 
 **Yugandhar Boya**  
 Full Stack Developer | MERN Stack
 
-- Portfolio: https://your-portfolio-link.com
-- LinkedIn: https://linkedin.com/in/your-profile
+GitHub:  
+https://github.com/yugandharboya

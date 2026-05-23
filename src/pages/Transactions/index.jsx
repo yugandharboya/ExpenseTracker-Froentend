@@ -28,8 +28,8 @@ const Transactions = () => {
   const { categoryList, getCategories } = useContext(DashboardContext);
 
   useEffect(() => {
-    getCategories();
-  }, [categoryList.length]);
+    getCategories(MonthStartDate, MonthEndDate);
+  }, []);
   useEffect(() => {
     getTransactions(page, 10);
   }, [page, MonthStartDate, MonthEndDate, searchValue, categoryValue]);
@@ -41,29 +41,30 @@ const Transactions = () => {
 
       <TransactionsHeader />
       <Filters />
+      <div className="transactions-main">
+        {transactionState.loading ? (
+          <LoadingView />
+        ) : transactionState.error ? (
+          <ErrorView />
+        ) : transactionsList.length === 0 ? (
+          <h1 className="empty-text">No Transactions Added yet</h1>
+        ) : (
+          <>
+            {transactionsList.map((item) => (
+              <TransactionCard item={item} key={item.id} />
+            ))}
 
-      {transactionState.loading ? (
-        <LoadingView />
-      ) : transactionState.error ? (
-        <ErrorView />
-      ) : transactionsList.length === 0 ? (
-        <h1 className="empty-text">No Transactions Added yet</h1>
-      ) : (
-        <>
-          {transactionsList.map((item) => (
-            <TransactionCard item={item} key={item.id} />
-          ))}
-
-          {hasMore && (
-            <button
-              className="load-more-btn"
-              onClick={() => setPage((prev) => prev + 1)}
-            >
-              Load More...
-            </button>
-          )}
-        </>
-      )}
+            {hasMore && (
+              <button
+                className="load-more-btn"
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                Load More...
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

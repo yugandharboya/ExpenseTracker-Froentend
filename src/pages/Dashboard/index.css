@@ -8,12 +8,29 @@
   flex-direction: column;
 }
 .dashboard-main {
+  min-height: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: center;
 }
-
+.summary-cards-section {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.categories-section {
+  min-height: 100px;
+  width: 100%;
+}
+.category-loading-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .dashboard-main h2 {
   margin-top: 10px;
 }
@@ -21,9 +38,14 @@
   margin-top: 30px;
   font-size: 25px;
 }
-.hero-card {
+.hero-card-section {
   margin-top: 30px;
 }
 .recent-transactions-heading {
   margin-top: 25px;
+}
+.empty-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
 }
